@@ -13,10 +13,15 @@ import secrets as secrets # file that contains your OAuth credentials
 CACHE_FILENAME = "twitter_cache.json"
 CACHE_DICT = {}
 
-client_key = secrets.TWITTER_API_KEY
-client_secret = secrets.TWITTER_API_SECRET
-access_token = secrets.TWITTER_ACCESS_TOKEN
-access_token_secret = secrets.TWITTER_ACCESS_TOKEN_SECRET
+# client_key = secrets.TWITTER_API_KEY
+# client_secret = secrets.TWITTER_API_SECRET
+# access_token = secrets.TWITTER_ACCESS_TOKEN
+# access_token_secret = secrets.TWITTER_ACCESS_TOKEN_SECRET
+
+client_key = "W1VaviOYx0nfMzJ3H6PC03sbM"
+client_secret = "ZPL1E6usPTSqHh3XDUZ53LDdUI22OiM3AxaQeLi92YoftJPXIy"
+access_token = "1376305686984847360-y3gxOy6o7yRD5TeSAhMcBWu711Vz74"
+access_token_secret = "PqNx15tSXUiAtXWLGsoVPRqpZ70Bv6D3Sfq4tZWa58zdT"
 
 oauth = OAuth1(client_key,
             client_secret=client_secret,
@@ -173,14 +178,12 @@ def make_request_with_cache(baseurl, hashtag, count):
     k_list2 = []
 
     CACHE_DICT = open_cache() # when you want to check if something is in cache dictionary need to make sure it is open to be checked
-
-    request_key =  construct_unique_key(baseurl, params)
-
-    # {api_key: response.json}
+    
+    request_key = construct_unique_key(baseurl, params)
 
     if request_key in CACHE_DICT.keys():
         return CACHE_DICT[request_key]
-        # return make_request(baseurl, params)
+
     else:
         response = make_request(baseurl, params)
         CACHE_DICT[request_key] = response
@@ -215,12 +218,11 @@ def find_most_common_cooccurring_hashtag(tweet_data, hashtag_to_ignore):
     hashtags).'''
 
     hashtag = []
-    tweet_statuses = tweet_data['statuses']
-    for x in tweet_statuses:
+    tweet_status = tweet_data['statuses']
+    for x in tweet_status:
         for z in x['entities']['hashtags']:
             if z['text'].lower() != hashtag_to_ignore[1:].lower():
                 hashtag.append(z['text'].lower())
-                # h_count += 1
             else:
                 continue
 
